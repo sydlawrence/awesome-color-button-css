@@ -1,0 +1,95 @@
+@mixin button() {
+  border-radius:4px;
+  color:#fff !important;
+  display:block;
+  font-weight:bold;
+  height:30px;
+  letter-spacing:0px;
+  margin-bottom:10px;
+  padding-top:12px;
+  position:relative;
+  text-decoration:none;
+  text-indent:50px;
+  width:298px;  
+  
+  
+  @include single-text-shadow(#000, 0, 1px, 1px);
+ 
+  
+ 
+  &:after {
+    border-radius:4px;  
+    content:' ';
+    display:block;
+    height:44px;
+    left:-1px;
+    position:absolute;
+    top:-1px;
+    width:300px;
+    z-index:-1;  
+ 
+  }
+  
+  &:hover, &:focus, &:active {
+    height:29px;
+    padding-top:13px;
+    
+    &:before {
+      margin-top:-14px;
+    }
+  }
+  
+}
+
+@mixin image-button() {
+  
+  @include button();
+  
+  &:before {
+    border-radius:15px;
+    content: " ";
+    display:block;
+    height:23px;
+    left:5px;
+    margin-top:-15px;
+    padding-top:8px;
+    position:absolute;
+    text-align:center;
+    text-indent:0;
+    top:50%;
+    width:30px;
+  }
+}
+
+@mixin image-color-button($color1, $color2, $inset, $img) {
+  
+  &:before {
+  
+    content:url($img);
+
+    @include radial-gradient(color-stops($color2 60%, rgba(0,0,0,0.4)));
+    @include single-box-shadow($inset, 0px, 0px, 2px, 0px);
+  }  
+}
+
+@mixin awesome-color-button($color, $color2, $inset, $img) {
+
+  $color: adjust-saturation($color,20);
+  $color2: adjust-saturation($color2,2);
+  
+  @include linear-gradient(color-stops($color, $color2));
+  @include single-box-shadow($inset, 0px, 0px, 5px, 5px, inset);
+  
+  @include image-color-button($color, $color2, $inset, $img);
+  
+  &:after {
+  
+    @include linear-gradient(color-stops(lighten($color,20), $color2));
+    @include single-box-shadow(rgba(0,0,0,0.4), 0px, 0px, 0px, 1px);
+  }  
+  
+  &:hover, &:focus, &:active {
+  
+    @include linear-gradient(color-stops($color2, $color));
+  }
+}
